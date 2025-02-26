@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 #https://www.kaggle.com/datasets/uom190346a/sleep-health-and-lifestyle-dataset
 
 st.title("Welcome!")
+
 st.write("Elliot Zheng and Katie Liao")
 
 df = pd.read_csv("health.csv")
@@ -29,5 +30,4 @@ if app_mode == "02 Data Visualization":
     df2 = df[['Age','Sleep Duration','Quality of Sleep', 'Physical Activity Level', 'Stress Level', 'Heart Rate', 'Daily Steps']]
     fig = sns.pairplot(df2)
     st.pyplot(fig)
-
 
