@@ -14,7 +14,8 @@ import matplotlib.pyplot as plt
 #git commit -am "Message here"
 #git push
 
-st.title("Welcome!")
+#st.title("Welcome!")
+st.markdown("# :rainbow[Welcome!]")
 
 st.write("Elliot Zheng and Katie Liao")
 
