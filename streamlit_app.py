@@ -25,12 +25,14 @@ app_mode = st.sidebar.selectbox("Select a page",["01 Introduction","02 Data Visu
 if app_mode == "01 Introduction":
     st.markdown("# Introduction:")
     st.write("Sleep is an exctremely important factor in one's health and wellbeing. We will be trying to predict one's sleep based on several lifestyle factors.")
-    num = st.number_input('No. of Rows', 5, 100)
+    num = st.slider("Select number of rows to view", min_value=5, max_value=100, value=10)
     st.dataframe(df.head(num))
+    st.markdown("## Description")
     st.dataframe(df.describe())
+    st.markdown("##Variable information")
     st.write(df.info())
 
-    st.text('(Rows,Columns)')
+    st.markdown("## Rows, Columns")
     st.write(df.shape)
 
 
