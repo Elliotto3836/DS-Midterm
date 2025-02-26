@@ -19,9 +19,13 @@ app_mode = st.sidebar.selectbox("Select a page",["01 Introduction","02 Data Visu
 if app_mode == "01 Introduction":
     st.markdown("# Introduction:")
     st.write("Sleep is an exctremely important factor in one's health and wellbeing. We will be trying to predict one's sleep based on several lifestyle factors.")
-    st.dataframe(df.head())
+    num = st.number_input('No. of Rows', 5, 100)
+    st.dataframe(df.head(num))
     st.dataframe(df.describe())
-    df.info()
+    st.write(df.info())
+    
+    st.text('(Rows,Columns)')
+    st.write(df.shape)
 
 
 if app_mode == "02 Data Visualization":
@@ -30,4 +34,5 @@ if app_mode == "02 Data Visualization":
     df2 = df[['Age','Sleep Duration','Quality of Sleep', 'Physical Activity Level', 'Stress Level', 'Heart Rate', 'Daily Steps']]
     fig = sns.pairplot(df2)
     st.pyplot(fig)
+    num = st.number_input('No. of Rows', 5, 10)
 
