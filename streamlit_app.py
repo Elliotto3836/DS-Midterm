@@ -8,6 +8,12 @@ import matplotlib.pyplot as plt
 #For this project we will use
 #https://www.kaggle.com/datasets/uom190346a/sleep-health-and-lifestyle-dataset
 
+
+#to push
+#git add .
+#git commit -am "Message here"
+#git push
+
 st.title("Welcome!")
 
 st.write("Elliot Zheng and Katie Liao")
@@ -23,7 +29,7 @@ if app_mode == "01 Introduction":
     st.dataframe(df.head(num))
     st.dataframe(df.describe())
     st.write(df.info())
-    
+
     st.text('(Rows,Columns)')
     st.write(df.shape)
 
