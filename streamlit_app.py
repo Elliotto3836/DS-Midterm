@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from ydata_profiling import ProfileReport
+import streamlit.components.v1 as components
 
 #examples https://huggingface.co/NYU-DS-4-Everyone
 #For this project we will use
@@ -18,7 +20,7 @@ import matplotlib.pyplot as plt
 #st.title("Welcome!")
 st.markdown("# :rainbow[How to Improve Sleep? An analysis of Sleep and Health Data.]")
 
-st.markdown("## Elliot Zheng and Katie Liao")
+st.header("Elliot Zheng and Katie Liao",divider="blue")
 
 df = pd.read_csv("health.csv")
 
@@ -43,6 +45,7 @@ if app_mode == "Introduction":
     st.markdown(":blue[Daily Steps] -- How many steps do they get per day?")
     st.markdown("## Rows, Columns")
     st.write(df.shape)
+    
 
 
 if app_mode == "Data Visualization":
