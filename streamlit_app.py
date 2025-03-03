@@ -17,6 +17,8 @@ import streamlit.components.v1 as components
 #git commit -am "Message here"
 #git push
 
+#git pull to pull
+
 #st.title("Welcome!")
 st.markdown("# :rainbow[How to Improve Sleep? An analysis of Sleep and Health Data.]")
 
