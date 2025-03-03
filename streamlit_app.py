@@ -45,7 +45,15 @@ if app_mode == "Introduction":
     st.markdown(":blue[Daily Steps] -- How many steps do they get per day?")
     st.markdown("## Rows, Columns")
     st.write(df.shape)
-    
+
+    st.markdown("## Pandas Profiling Report")
+    profile = ProfileReport(df, explorative=True)
+    profile.to_file("profile_report.html")  # Save the report
+
+    with open("profile_report.html", "r", encoding="utf-8") as f:
+        html = f.read()
+
+    components.html(html, height=800, scrolling=True)
 
 
 if app_mode == "Data Visualization":
