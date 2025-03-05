@@ -65,7 +65,7 @@ div[data-baseweb="tab-list"] button[aria-selected="true"] {
 if app_mode == "Business Case and Data Presentation":
     rain(emoji="💤",font_size=54,falling_speed=5,animation_length="10",)
     st.markdown("# Introduction:")
-    st.write("Sleep is vital for everyone’s health and wellbeing. This app aims to help you improve your sleep duration based on personalized model predictions, considering several lifestyle factors. You are currently on the Business Case and Data Presentation page, where you can get an overview of our dataset, specifically the variables that will be used in your sleep duration prediction. In the drop-down menu on the left, you can also find the Data Visualization page and the Model Prediction page. ")
+    st.write("Sleep is vital for everyone’s health and wellbeing. This app aims to help you improve your sleep quality based on personalized model predictions, considering several lifestyle factors. You are currently on the Business Case and Data Presentation page, where you can get an overview of our dataset, specifically the variables that will be used in your sleep quality prediction. In the drop-down menu on the left, you can also find the Data Visualization page and the Model Prediction page. ")
     num = st.slider("Select number of rows to view", min_value=5, max_value=100, value=10)
     st.dataframe(df.head(num))
     st.markdown("## Description of the Data")
@@ -145,7 +145,7 @@ if app_mode == "Data Visualization":
 
 if app_mode == "Model Prediction":
     st.markdown("# Model Prediction")
-    st.write("Please input your personal health information below to predict your sleep duration. Feel free to play around with different values to see how each factor impacts your sleep!")
+    st.write("Please input your personal health information below to predict your sleep quality. Play around with different values to see how each factor impacts your sleep quality and how you could improve it!")
     
     X = df2.drop("Quality of Sleep", axis=1)
     y = df["Quality of Sleep"]
