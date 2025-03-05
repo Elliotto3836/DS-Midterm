@@ -34,7 +34,7 @@ df = pd.read_csv("health.csv")
 
 st.header("",divider="blue")
 
-app_mode = st.sidebar.selectbox("Select a page",["Introduction","Data Visualization","Predictions"])
+app_mode = st.sidebar.selectbox("Select a page",["Business Case and Data Presentation","Data Visualization","Model Prediction"])
 
 st.markdown("""<style>
 div[data-baseweb="tab-list"] button {
@@ -145,6 +145,7 @@ if app_mode == "Data Visualization":
 
 if app_mode == "Model Prediction":
     st.markdown("# Model Prediction")
+    st.write("Please input your personal health information below to predict your sleep duration. Feel free to play around with different values to see how each factor impacts your sleep!")
     
     X = df2.drop("Sleep Duration", axis=1)
     y = df["Sleep Duration"]
