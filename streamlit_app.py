@@ -147,8 +147,8 @@ if app_mode == "Model Prediction":
     st.markdown("# Model Prediction")
     st.write("Please input your personal health information below to predict your sleep duration. Feel free to play around with different values to see how each factor impacts your sleep!")
     
-    X = df2.drop("Sleep Duration", axis=1)
-    y = df["Sleep Duration"]
+    X = df2.drop("Quality of Sleep", axis=1)
+    y = df["Quality of Sleep"]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
@@ -163,19 +163,20 @@ if app_mode == "Model Prediction":
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.scatter(y_test, predictions, color="blue")
     ax.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle="--")
-    ax.set_xlabel("Actual Sleep Duration")
-    ax.set_ylabel("Predicted Sleep Duration")
-    ax.set_title("Actual vs Predicted Sleep Duration")
+    ax.set_xlabel("Actual Sleep Quality")
+    ax.set_ylabel("Predicted Sleep Quality")
+    ax.set_title("Actual vs Predicted Sleep Quality")
     st.pyplot(fig)
 
     age = st.number_input("Age", min_value=0, max_value=120, value=25)
-    quality_of_sleep = st.slider("Quality of Sleep (0-10)", 0, 10, 5)
+    sleep_duration = st.slider("Sleep Duration (0-16)", 0, 16, 8)
     physical_activity = st.slider("Physical Activity Level (0-100)", 0, 100, 50)
     stress_level = st.slider("Stress Level (0-10)", 0, 10, 5)
     heart_rate = st.number_input("Heart Rate (BPM)", min_value=40, max_value=200, value=70)
     daily_steps = st.number_input("Daily Steps", min_value=0, max_value=50000, value=5000)
 
-    if st.button("Predict Sleep Duration"):
-        user_input = np.array([[age, quality_of_sleep, physical_activity, stress_level, heart_rate, daily_steps]])
+    if st.button("Predict Sleep Quality"):
+        user_input = np.array([[age, sleep_duration, physical_activity, stress_level, heart_rate, daily_steps]])
         predicted_sleep = model.predict(user_input)
-        st.write(f"### Predicted Sleep Duration: {predicted_sleep[0]:.2f} hours")
+        st.write(f"### Predicted Sleep Quality: {predicted_sleep[0]:.2f} / 10")
+
