@@ -62,10 +62,10 @@ div[data-baseweb="tab-list"] button[aria-selected="true"] {
 } </style>""", unsafe_allow_html=True)
 
 
-if app_mode == "Introduction":
+if app_mode == "Business Case and Data Presentation":
     rain(emoji="💤",font_size=54,falling_speed=5,animation_length="10",)
     st.markdown("# Introduction:")
-    st.write("Sleep is an exctremely important factor in one's health and wellbeing. We will be trying to predict one's sleep based on several lifestyle factors.")
+    st.write("Sleep is vital for everyone’s health and wellbeing. This app aims to help you improve your sleep duration based on personalized model predictions, considering several lifestyle factors. You are currently on the Business Case and Data Presentation page, where you can get an overview of our dataset, specifically the variables that will be used in your sleep duration prediction. In the drop-down menu on the left, you can also find the Data Visualization page and the Model Prediction page. ")
     num = st.slider("Select number of rows to view", min_value=5, max_value=100, value=10)
     st.dataframe(df.head(num))
     st.markdown("## Description of the Data")
@@ -92,6 +92,7 @@ df2 = df[['Age','Sleep Duration','Quality of Sleep', 'Physical Activity Level', 
 
 if app_mode == "Data Visualization":
     st.markdown("# Data Visualization:")
+    st.write("Please find below graphs that further underscore significant details and correlations in our dataset.")
 
 
     countPlots, HeatMap, BoxAndWhisker, PieChart, pairPlot = st.tabs(["Count Plots", "Heat Map", "Box and Whisker Plots", "Pie Charts", "Pairplot"])
@@ -142,8 +143,8 @@ if app_mode == "Data Visualization":
 
 
 
-if app_mode == "Predictions":
-    st.markdown("# Predictions")
+if app_mode == "Model Prediction":
+    st.markdown("# Model Prediction")
     
     X = df2.drop("Sleep Duration", axis=1)
     y = df["Sleep Duration"]
