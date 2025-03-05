@@ -94,23 +94,56 @@ if app_mode == "Data Visualization":
     st.markdown("# Data Visualization:")
 
 
-    pairPlot,countPlots, BoxAndWhisker, PieChart= st.tabs(["Pairplot","Count Plots", "Box and Whisker Plots", "Pie Charts"])
+    pairPlot,HeatMap,countPlots, BoxAndWhisker, PieChart = st.tabs(["Pairplot","Heat Map","Count Plots", "Box and Whisker Plots", "Pie Charts"])
 
     df2 = df[['Age','Sleep Duration','Quality of Sleep', 'Physical Activity Level', 'Stress Level', 'Heart Rate', 'Daily Steps']]
+    df3 = df[['Occupation', 'BMI Category', 'Blood Pressure', 'Sleep Disorder']]
 
     with pairPlot:
-        st.write("Here is a pairplot to look at the relationship between all of the variables: ")
-        fig = sns.pairplot(df2)
         st.markdown("## :blue[Pairplot]")
+        fig = sns.pairplot(df2)
+        st.pyplot(fig)
+
+    with HeatMap:
+        st.markdown("## :blue[Correlation Heatmap]")
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.heatmap(df2.corr(), annot=True, cmap="Blues", linewidths=0.5, ax=ax)
+        
         st.pyplot(fig)
 
     with countPlots:
-        
-        var = st.radio("Choose a variable:", df2.columns)
+        st.markdown("## :blue[Bar Plot]")
+        varCount = st.selectbox("Choose a variable:", df.columns, key="countplot_var")
         fig, ax = plt.subplots(figsize=(10, 6))
-        
-        sns.countplot(data = df2, x = var,ax=ax)
+        sns.countplot(data=df, x=varCount, ax=ax)
         st.pyplot(fig)
+
+    with BoxAndWhisker:
+        st.markdown("## :blue[Box and Whisker Plot]")
+        
+        varBox = st.selectbox("Choose a variable:", df2.columns, key="boxplot_var")
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.boxplot(data=df2, y=varBox, ax=ax)
+        
+        st.pyplot(fig)
+
+    with PieChart:
+        st.markdown("## :blue[Pie Chart]")
+
+        varPie = st.selectbox("Choose a variable:", df.columns, key="piechart_var")
+        
+        pie_data = df[varPie].value_counts()
+        
+        fig, ax = plt.subplots(figsize=(8, 8))
+        ax.pie(pie_data, labels=pie_data.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("pastel"))
+        
+        st.pyplot(fig)
+
+
+
+
 
 
 if app_mode == "Predictions":
