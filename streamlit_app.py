@@ -21,26 +21,15 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 #git pull to pull
 
-#st.title("Welcome!")
-
-
-st.markdown("# :rainbow[How to Improve Sleep? An analysis of Sleep and Health Data.]")
-
-st.header("Elliot Zheng and Katie Liao",divider="blue")
-
-st.image("Sleeping.jpg")
-
-df = pd.read_csv("health.csv")
-
-st.header("",divider="blue")
-
-app_mode = st.sidebar.selectbox("Select a page",["Business Case and Data Presentation","Data Visualization","Model Prediction"])
-
 st.markdown("""<style>
 div[data-baseweb="tab-list"] button {
     color: #60b5ff !important;  /* Nord blue text color */
 }
-
+h1, h2, h3, h4, h5, h6 {text-align: center; color: #60b5ff;}
+.stButton>button {background-color: #60b5ff; color: white; border-radius: 10px; padding: 10px;}
+.stSelectbox, .stSlider, .stNumberInput {color: #60b5ff !important;}
+.stDataFrame {border-radius: 15px; overflow: hidden;}
+    
 div[data-baseweb="tab-list"] button[aria-selected="true"] {
     color: #60b5ff !important; 
     background-color: transparent !important; 
@@ -51,8 +40,6 @@ div[data-baseweb="tab-list"] button[aria-selected="true"] {
     background-color: #60b5ff !important;  /* Change the text color to blue */
 }
 
-
-
 .st-ej {
     background-color: #60b5ff !important;  /* Change the text color to blue */
 }
@@ -62,27 +49,45 @@ div[data-baseweb="tab-list"] button[aria-selected="true"] {
 } </style>""", unsafe_allow_html=True)
 
 
+st.markdown("# :rainbow[🌙 How to Improve Sleep? 💤]")
+st.markdown("### *An Analysis of Sleep and Health Data*", unsafe_allow_html=True)
+st.markdown("#### **By: Elliot Zheng and Katie Liao**", unsafe_allow_html=True)
+
+st.image("Sleeping.jpg")
+
+df = pd.read_csv("health.csv")
+
+st.header("",divider="blue")
+
+app_mode = st.sidebar.selectbox("Select a page",["Business Case and Data Presentation","Data Visualization","Model Prediction"])
+
 if app_mode == "Business Case and Data Presentation":
     rain(emoji="💤",font_size=54,falling_speed=5,animation_length="10",)
-    st.markdown("# Introduction:")
+    st.markdown("# :blue[📊 Introduction:]")
     st.write("Sleep is vital for everyone’s health and wellbeing. This app aims to help you improve your sleep quality based on personalized model predictions, considering several lifestyle factors. You are currently on the Business Case and Data Presentation page, where you can get an overview of our dataset, specifically the variables that will be used in your sleep quality prediction. In the drop-down menu on the left, you can also find the Data Visualization page and the Model Prediction page. ")
     num = st.slider("Select number of rows to view", min_value=5, max_value=100, value=10)
     st.dataframe(df.head(num))
-    st.markdown("## Description of the Data")
+    st.markdown("## :blue[🔍 Description of the Data]")
     st.dataframe(df.describe())
-    st.markdown("## Variables Used")
+    st.markdown("## :blue[Variables Used]")
 
-    st.markdown(":blue[Age] -- How old is the person?")
-    st.markdown(":blue[Sleep Duration] -- How long do they sleep?")
-    st.markdown(":blue[Quality of Sleep] -- How well do they sleep (0-10).")
-    st.markdown(":blue[Physical Activity Level] -- How much physical activity do they get? (0-100).")
-    st.markdown(":blue[Stress Level] -- How stressed are they? (0-10).")
-    st.markdown(":blue[Heart Rate] -- Heart Rate in Beats Per Minute.")
-    st.markdown(":blue[Daily Steps] -- How many steps do they get per day?")
-    st.markdown("## Rows, Columns")
+    features = {
+        ":blue[Age]": "Age of the person",
+        ":blue[Sleep Duration]": "Hours of sleep",
+        ":blue[Quality of Sleep]": "Rating from 0-10",
+        ":blue[Physical Activity Level]": "Activity level from 0-100",
+        ":blue[Stress Level]": "Stress score (0-10)",
+        ":blue[Heart Rate]": "BPM (Beats per Minute)",
+        ":blue[Daily Steps]": "Average daily steps"
+    }
+    
+    for key, value in features.items():
+        st.markdown(f"- **{key}** - {value}")
+
+    st.markdown("## :blue[Rows, Columns]")
     st.write(df.shape)
 
-    st.markdown("## Pandas Profiling Report")
+    st.markdown("## :blue[Pandas Profiling Report]")
     
     profile = ProfileReport(df, minimal=True)
     html = profile.to_html()
@@ -91,7 +96,7 @@ if app_mode == "Business Case and Data Presentation":
 df2 = df[['Age','Sleep Duration','Quality of Sleep', 'Physical Activity Level', 'Stress Level', 'Heart Rate', 'Daily Steps']]
 
 if app_mode == "Data Visualization":
-    st.markdown("# Data Visualization:")
+    st.markdown("# 📊 Data Visualization:")
     st.write("Please find below graphs that further underscore significant details and correlations in our dataset.")
 
 
@@ -178,5 +183,156 @@ if app_mode == "Model Prediction":
     if st.button("Predict Sleep Quality"):
         user_input = np.array([[age, sleep_duration, physical_activity, stress_level, heart_rate, daily_steps]])
         predicted_sleep = model.predict(user_input)
-        st.write(f"### Predicted Sleep Quality: {predicted_sleep[0]:.2f} / 10")
+        if predicted_sleep[0]>10:
+            predicted_sleep[0]=10
+        st.markdown(f"### 💤 Predicted Sleep Quality: {predicted_sleep[0]:.2f} / 10")
 
+# import streamlit as st
+# from streamlit_extras.let_it_rain import rain
+# import numpy as np
+# import pandas as pd
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# from ydata_profiling import ProfileReport
+# import streamlit.components.v1 as components
+# from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+# from sklearn.metrics import mean_squared_error
+
+# # Custom Styling
+# st.markdown(
+#     """
+#     <style>
+#         h1, h2, h3, h4, h5, h6 {text-align: center; color: #60b5ff;}
+#         .stButton>button {background-color: #60b5ff; color: white; border-radius: 10px; padding: 10px;}
+#         .stSelectbox, .stSlider, .stNumberInput {color: #60b5ff !important;}
+#         .stDataFrame {border-radius: 15px; overflow: hidden;}
+#     </style>
+#     """,
+#     unsafe_allow_html=True,
+# )
+
+# # Title and Authors
+# st.markdown("# 🌙 **How to Improve Sleep?** 💤")
+# st.markdown("### *An Analysis of Sleep and Health Data*", unsafe_allow_html=True)
+# st.markdown("#### **By: Elliot Zheng and Katie Liao**", unsafe_allow_html=True)
+
+# # Background Image
+# st.image("Sleeping.jpg", use_column_width=True)
+
+# # Load Data
+# df = pd.read_csv("health.csv")
+
+# df2 = df[['Age','Sleep Duration','Quality of Sleep', 'Physical Activity Level', 'Stress Level', 'Heart Rate', 'Daily Steps']]
+
+# # Sidebar Navigation
+# app_mode = st.sidebar.radio("📌 **Choose a Page:**", [
+#     "Business Case & Data Overview",
+#     "Data Visualization",
+#     "Model Prediction"
+# ])
+
+# # Add Rain Effect
+# rain(emoji="💤", font_size=54, falling_speed=5, animation_length="10")
+
+# if app_mode == "Business Case & Data Overview":
+#     st.markdown("## 📊 **Introduction**")
+#     st.write(
+#         "Sleep is vital for health and well-being. This app helps analyze sleep patterns using AI-based predictions! "
+#         "Navigate through the tabs to explore data visualizations and predictive modeling."
+#     )
+    
+#     num = st.slider("🔍 View Data Sample", min_value=5, max_value=100, value=10)
+#     st.dataframe(df.head(num))
+    
+#     st.markdown("## 📌 **Dataset Overview**")
+#     st.dataframe(df.describe())
+    
+#     st.markdown("## 🔍 **Key Features**")
+#     features = {
+#         "Age": "Age of the person",
+#         "Sleep Duration": "Hours of sleep",
+#         "Quality of Sleep": "Rating from 0-10",
+#         "Physical Activity Level": "Activity level from 0-100",
+#         "Stress Level": "Stress score (0-10)",
+#         "Heart Rate": "BPM (Beats per Minute)",
+#         "Daily Steps": "Average daily steps"
+#     }
+    
+#     for key, value in features.items():
+#         st.markdown(f"✔️ **{key}** - {value}")
+
+#     # Pandas Profiling Report
+#     st.markdown("## 📋 **Data Report**")
+#     profile = ProfileReport(df, minimal=True)
+#     html = profile.to_html()
+#     components.html(html, height=800, scrolling=True)
+
+# elif app_mode == "Data Visualization":
+#     st.markdown("## 📊 **Data Visualization**")
+#     st.write("Explore the key insights from our dataset through interactive charts and graphs.")
+    
+#     viz_tabs = st.tabs(["Heatmap", "Boxplot", "Pairplot", "Pie Chart"])
+    
+#     with viz_tabs[0]:
+#         st.markdown("### 🔥 Correlation Heatmap")
+#         fig, ax = plt.subplots(figsize=(10, 6))
+#         sns.heatmap(df2.corr(), annot=True, cmap="coolwarm", linewidths=0.5, ax=ax)
+#         st.pyplot(fig)
+
+#     with viz_tabs[1]:
+#         st.markdown("### 📦 Box Plot")
+#         selected_feature = st.selectbox("Select Feature", df2.columns, key="boxplot")
+#         fig, ax = plt.subplots(figsize=(10, 6))
+#         sns.boxplot(data=df2, y=selected_feature, ax=ax)
+#         st.pyplot(fig)
+
+#     with viz_tabs[2]:
+#         st.markdown("### 🔄 Pairplot")
+#         fig = sns.pairplot(df2)
+#         st.pyplot(fig)
+
+#     with viz_tabs[3]:
+#         st.markdown("### 🍕 Pie Chart")
+#         selected_category = st.selectbox("Choose Category", df[['Occupation', 'Sleep Disorder']].columns)
+#         pie_data = df[selected_category].value_counts()
+#         fig, ax = plt.subplots()
+#         ax.pie(pie_data, labels=pie_data.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette("pastel"))
+#         st.pyplot(fig)
+
+# elif app_mode == "Model Prediction":
+#     st.markdown("## 🤖 **Predict Sleep Quality**")
+#     st.write("Input your details below and our model will predict your sleep quality.")
+    
+#     # Train Model
+#     X = df2.drop("Quality of Sleep", axis=1)
+#     y = df["Quality of Sleep"]
+#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#     model = LinearRegression()
+#     model.fit(X_train, y_train)
+#     predictions = model.predict(X_test)
+    
+#     # Model Performance
+#     st.markdown(f"### 📉 Mean Squared Error: {mean_squared_error(y_test, predictions):.2f}")
+    
+#     # Prediction Visualization
+#     fig, ax = plt.subplots(figsize=(10, 6))
+#     ax.scatter(y_test, predictions, color="blue")
+#     ax.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle="--")
+#     ax.set_xlabel("Actual Sleep Quality")
+#     ax.set_ylabel("Predicted Sleep Quality")
+#     ax.set_title("Actual vs Predicted Sleep Quality")
+#     st.pyplot(fig)
+    
+#     # User Input
+#     age = st.number_input("🧑 Age", min_value=0, max_value=120, value=25)
+#     sleep_duration = st.slider("🌙 Sleep Duration (hours)", 0, 16, 8)
+#     physical_activity = st.slider("🏃 Physical Activity Level", 0, 100, 50)
+#     stress_level = st.slider("😰 Stress Level", 0, 10, 5)
+#     heart_rate = st.number_input("💓 Heart Rate (BPM)", min_value=40, max_value=200, value=70)
+#     daily_steps = st.number_input("🚶 Daily Steps", min_value=0, max_value=50000, value=5000)
+    
+#     if st.button("🔮 Predict Sleep Quality"):
+#         user_input = np.array([[age, sleep_duration, physical_activity, stress_level, heart_rate, daily_steps]])
+#         predicted_sleep = model.predict(user_input)
+#         st.markdown(f"### 💤 Predicted Sleep Quality: {predicted_sleep[0]:.2f} / 10")
